@@ -5,7 +5,7 @@
  * yang dikelompokkan dalam satu nama. 
  */
 
-namespace App\core;
+namespace App;
 
 /**
  * Class adalah bisa dikatakan seperti keluarga
