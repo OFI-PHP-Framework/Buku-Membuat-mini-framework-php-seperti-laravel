@@ -1,0 +1,25 @@
+{
+    "name": "teguh02/myframework",
+    "description": "Framework pertama saya",
+    "type": "project",
+    "license": "free",
+    "authors": [
+        {
+            "name": "Teguh Rijanandi",
+            "email": "teguhrijanandi02@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {
+        "php": "^7.2",
+        "filp/whoops": "^2.7",
+        "illuminate/database": "^7.25",
+        "illuminate/events": "^7.25",
+        "illuminate/container": "^7.25"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    }
+}
