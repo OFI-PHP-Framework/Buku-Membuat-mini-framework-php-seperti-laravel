@@ -7,12 +7,147 @@
 
 namespace App;
 
+use Exception;
+include 'config.php';
+
 /**
  * Class adalah bisa dikatakan seperti keluarga
  * jadi didalam class core akan ada beberapa anggota keluarga
  */
 
 class core {
+
+    // Berfungsi untuk mendapatkan request saat ini
+    // dari url
+    protected $getRequest;
+
+    /**
+     * Method yang akan berjalan setiap saat ketika
+     * method lain dipanggil
+     */
+
+    public function __construct()
+    {
+        // isi fungsi getRequest dengan url saat ini
+        // dengan bantuan instance $_SERVER
+        $this->getRequest = $_SERVER['REQUEST_URI'];
+
+        $whoops = new \Whoops\Run;
+        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+        $whoops->register();
+    }
+
+    /**
+     * Method untuk mendapatkan semua 
+     * konfigurasi route kita
+     */
+
+    public function getRoute()
+    {
+        include 'routes/web.php';
+        return $web;
+    }
+
+    /**
+     * Method yang berfungsi untuk memproses
+     * permintaan dan mencocokan dengan file config
+     */
+
+    public function processRoute()
+    {
+        // Membuat perulangan dengan mengambil data array
+        // pada method getRoute()
+
+        $array = $this->getRoute();
+
+        // proses untuk membersihkan hasil dari
+        // getRequest, pertama ambil value dari ProjectURL
+        // yang ada di file config
+
+        $getURL = str_replace(ProjectURL, '', $this->getRequest);
+
+        // hapus tanda / dengan bantuan ltrim
+        $url = ltrim($getURL, '/');
+
+        // Buat variabel penyimpanan sementara
+        // untuk menyimpan data route, tipe dan direction
+        // ketika ditemukannya kecocokan data 
+        // pada proses looping
+
+        $temp_route = null;
+        $temp_type = null;
+        $temp_direction = null;
+
+        for ($i=0; $i < count($array); $i++) { 
+
+            $route = $array[$i]['url'];
+
+            // Jika url saat ini sama dengan deklarasi 
+            // pada route maka
+            if($url === $route) {
+                // masukan data dari array kedalam 3 variabel $temp
+                $temp_route     = $route;
+                $temp_type      = $array[$i]['type'];
+                $temp_direction = $array[$i]['direction'];
+
+                // dan hentikan perulangan dengan paksa
+                // jika sudah menemukan kecocokan data
+                break;
+            } 
+        }
+
+        switch ($temp_type) {
+            case 'view':
+                // Mendapatkan path instalasi projek kita
+                // hasilnya seperti ini
+                // C:/xampp_7.1/htdocs/myFramework/views/
+                $path_view = $_SERVER["DOCUMENT_ROOT"] . ProjectURL . '/views/';
+
+                // Cari apakah file yang diminta ada didalam folder views?
+                if(is_file($path_view . $temp_direction . '.php')) {
+                    // Buka file yang ada didalam views menggunakan include
+                    include $path_view . $temp_direction . '.php';
+                } else {
+                    // jika file view tidak ditemukan
+                    throw new Exception("Views not found", 1);
+                }
+
+                break;
+            
+            case 'controller':
+                // Mendapatkan path instalasi projek kita
+                // hasilnya seperti ini
+                // C:/xampp_7.1/htdocs/myFramework/App/
+                $path_controller = $_SERVER["DOCUMENT_ROOT"] . ProjectURL . '/App/';
+
+                // Cari tahu apakah file controller yang dimaksud tersedia atau tidak
+                if(is_file($path_controller . $temp_route . 'Controller.php')) {
+                    // Kita pecah dulu menjadi dua bagian value pada direction
+                    $explode = explode('@', $temp_direction);
+                    // Hasilnya seperti ini
+                    // Array ( [0] => helloController [1] => index )
+                    
+                    // Dapatkan class dan method pada proses explode diatas
+                    $getClass = 'App\\' . $explode[0];
+                    $getMethods = $explode[1];
+
+                    // Buat class baru dengan memanggil $getClass
+                    $newClass = new $getClass;
+
+                    // dan panggil method dengan cara seperti ini
+                    $newClass->$getMethods();
+                } else {
+                    throw new Exception("File yang diminta tidak ada", 400);
+                }
+
+                break;
+
+            default:
+                throw new Exception("Request 404 not found", 404);
+                break;
+        }
+
+    }
 
     /**
      * Method ini adalah method yang akan dipanggil
@@ -21,7 +156,11 @@ class core {
 
     public function start()
     {
-        # code...
+        $this->processRoute();
+
+        // echo "<pre>";
+        // print_r($_SERVER);
+        // echo "</pre>";
     }
 
 }
