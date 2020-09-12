@@ -64,4 +64,24 @@ class tweetController {
         // Simpan data
         $data->save();
     }
+
+    /**
+     * Digunakan untuk menyimpan perubahan data
+     */
+
+    public function update()
+    {
+        # code...
+    }
+
+    /**
+     * Digunakan untuk memuat 
+     * template editnya dan sambil
+     * membawa data yang akan kita edit
+     */
+
+    public function edit()
+    {
+        # code...
+    }
 }
