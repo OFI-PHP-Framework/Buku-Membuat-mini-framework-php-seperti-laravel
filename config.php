@@ -24,7 +24,7 @@ define('server', 'localhost');
 // port database
 define('port', '3306');
 // nama database
-define('database', 'myFramework');
+define('database', 'myframework');
 // username database
 define('username', 'root');
 // password database

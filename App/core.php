@@ -7,8 +7,12 @@
 
 namespace App;
 
+use Illuminate\Database\Capsule\Manager as Capsule;
+use \Illuminate\Events\Dispatcher;
+use \Illuminate\Container\Container;
 use Exception;
 include 'config.php';
+
 
 /**
  * Class adalah bisa dikatakan seperti keluarga
@@ -31,10 +35,42 @@ class core {
         // isi fungsi getRequest dengan url saat ini
         // dengan bantuan instance $_SERVER
         $this->getRequest = $_SERVER['REQUEST_URI'];
+        $this->databaseEngine();
 
         $whoops = new \Whoops\Run;
         $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
         $whoops->register();
+    }
+
+    /**
+     * Method untuk mengaktifkan package database
+     * laravel kedalam sistem framework kita
+     */
+
+    public function databaseEngine()
+    {
+        $capsule = new Capsule;
+
+        $capsule->addConnection([
+            'driver'    => 'mysql',
+            'host'      => server,
+            'database'  => database,
+            'username'  => username,
+            'password'  => password,
+            'port'      => port,
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ]);
+
+        // Set the event dispatcher used by Eloquent models... (optional)
+        $capsule->setEventDispatcher(new Dispatcher(new Container));
+
+        // Make this Capsule instance available globally via static methods... (optional)
+        $capsule->setAsGlobal();
+
+        // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
+        $capsule->bootEloquent();
     }
 
     /**
@@ -120,10 +156,11 @@ class core {
                 // C:/xampp_7.1/htdocs/myFramework/App/
                 $path_controller = $_SERVER["DOCUMENT_ROOT"] . ProjectURL . '/App/';
 
+                // Kita pecah dulu menjadi dua bagian value pada direction
+                $explode = explode('@', $temp_direction);
+
                 // Cari tahu apakah file controller yang dimaksud tersedia atau tidak
-                if(is_file($path_controller . $temp_route . 'Controller.php')) {
-                    // Kita pecah dulu menjadi dua bagian value pada direction
-                    $explode = explode('@', $temp_direction);
+                if(is_file($path_controller . $explode[0] . '.php')) {
                     // Hasilnya seperti ini
                     // Array ( [0] => helloController [1] => index )
                     
@@ -157,10 +194,6 @@ class core {
     public function start()
     {
         $this->processRoute();
-
-        // echo "<pre>";
-        // print_r($_SERVER);
-        // echo "</pre>";
     }
 
 }
