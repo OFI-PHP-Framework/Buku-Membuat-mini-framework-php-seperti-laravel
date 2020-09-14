@@ -83,5 +83,6 @@ class tweetController {
     public function edit()
     {
         # code...
+        echo 123;
     }
 }

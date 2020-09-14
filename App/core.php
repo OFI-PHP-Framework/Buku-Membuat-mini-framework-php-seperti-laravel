@@ -120,7 +120,7 @@ class core {
 
             // Jika url saat ini sama dengan deklarasi 
             // pada route maka
-            if(strpos($url, $route) != false) {
+            if(rtrim(strtok($url, '?'), '/') === $route) {
                 // masukan data dari array kedalam 3 variabel $temp
                 $temp_route     = $route;
                 $temp_type      = $array[$i]['type'];
