@@ -6,6 +6,7 @@ namespace App;
 // sebagai model tabel tweet
 use App\tweet;
 use Exception;
+use App\cekLogin;
 
 class tweetController {
 
@@ -43,6 +44,9 @@ class tweetController {
 
     public function store()
     {
+        $middleware = new cekLogin;
+        $middleware->handle();
+
         // Dapatkan jenis http method saat ini
         $Http = $_SERVER['REQUEST_METHOD'];
 
@@ -63,6 +67,8 @@ class tweetController {
 
         // Simpan data
         $data->save();
+
+        header('Location:' . ProjectURL . '/tweet');
     }
 
     /**
@@ -71,7 +77,31 @@ class tweetController {
 
     public function update()
     {
-        # code...
+        $middleware = new cekLogin;
+        $middleware->handle();
+
+        // Dapatkan jenis http method saat ini
+        $Http = $_SERVER['REQUEST_METHOD'];
+
+        // Jika http method saat ini tidak sama dengan
+        // post maka buat pesan error
+        if($Http != "POST") {
+            throw new Exception("Metode " . $Http . ' tidak diizinkan', 500);
+        }
+
+        // Edit data tweet baru
+        $data = tweet::where('id', $_GET['id']) -> first();
+
+        // Tangkap data user
+        $data->user = $_REQUEST['user'];
+
+        // Tangkap data tweet
+        $data->tweet = $_REQUEST['tweet'];
+
+        // Simpan data
+        $data->update();
+
+        header('Location:' . ProjectURL . '/tweet');
     }
 
     /**
@@ -82,7 +112,44 @@ class tweetController {
 
     public function edit()
     {
-        # code...
-        echo 123;
+        $middleware = new cekLogin;
+        $middleware->handle();
+
+        // Mendapatkan id dari parameter
+        $id = $_GET['id'];
+
+        // Mendapatkan data tweet dari database
+        $tweet = tweet::where('id', $id) -> first();
+
+        // Jika tidak terdapat id pada parameter 
+        // atau tidak ditemukannya data dalam database
+        // maka alihkan ke halaman index tweet
+        if(!$id || !$tweet) {
+            header('Location: ' . ProjectURL . '/tweet');
+        }
+
+        // Jika data ditemukan maka muat view edit
+        // sambil membawa data tweet
+        $this->view('edit', $tweet);
+    }
+
+    /**
+     * Method yang digunakan untuk menghapus data
+     * tweet
+     */
+    public function delete()
+    {
+        $middleware = new cekLogin;
+        $middleware->handle();
+
+        // Mendapatkan id dari parameter
+        $id = $_GET['id'];
+
+        // Proses hapus datanya
+        tweet::where('id', $id) -> first() -> delete();
+
+        // Alihkan ke halaman index tweet ketika sudah 
+        // selesai hapus data
+        header('Location:' . ProjectURL . '/tweet');
     }
 }

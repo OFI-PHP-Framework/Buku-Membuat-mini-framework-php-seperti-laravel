@@ -37,12 +37,19 @@
                         <?php echo $d->tweet ?>
                     </td>
                     <td>
-                        <button type="button">
-                            Edit
-                        </button>
-                        <button>
-                            Hapus
-                        </button>
+                        <?php if(isset($_SESSION['id_user'])) { ?>
+                            <a href="<?php echo ProjectURL ?>/edit?id=<?php echo $d->id ?>">
+                                <button type="button">
+                                    Edit
+                                </button>
+                            </a>
+                            
+                            <a href="<?php echo ProjectURL ?>/delete?id=<?php echo $d->id ?>">
+                                <button>
+                                    Hapus
+                                </button>
+                            </a>
+                        <?php } ?>
                     </td>
                 </tr>
             <?php } ?>

@@ -44,7 +44,38 @@ $web = [
         'url' => 'edit',
         'direction' => 'tweetController@edit',
         'type' => 'controller'
-    ]
+    ],
+    [
+        'url' => 'delete',
+        'direction' => 'tweetController@delete',
+        'type' => 'controller'
+    ],
+
+    [
+        'url' => 'login',
+        'direction' => 'authController@login',
+        'type' => 'controller'
+    ],
+    [
+        'url' => 'register',
+        'direction' => 'authController@register',
+        'type' => 'controller'
+    ],
+    [
+        'url' => 'masuk',
+        'direction' => '/Auth/login',
+        'type' => 'view'
+    ],
+    [
+        'url' => 'registrasi',
+        'direction' => '/Auth/register',
+        'type' => 'view'
+    ],
+    [
+        'url' => 'keluar',
+        'direction' => 'authController@logout',
+        'type' => 'controller'
+    ],
 
 
 ];

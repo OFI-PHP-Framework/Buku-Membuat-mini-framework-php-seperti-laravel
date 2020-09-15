@@ -1,3 +1,12 @@
+<?php 
+    // Import class
+    use App\cekLogin;
+
+    // jalankan middlewarenya
+    $middleware = new cekLogin;
+    $middleware->handle();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

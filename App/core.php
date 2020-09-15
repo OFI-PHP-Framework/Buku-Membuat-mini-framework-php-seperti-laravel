@@ -12,6 +12,7 @@ use \Illuminate\Events\Dispatcher;
 use \Illuminate\Container\Container;
 use Exception;
 include 'config.php';
+session_start();
 
 
 /**
