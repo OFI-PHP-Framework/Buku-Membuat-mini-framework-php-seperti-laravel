@@ -1,6 +1,6 @@
 <?php 
     // Import class
-    use App\cekLogin;
+    use App\Middleware\cekLogin;
 
     // jalankan middlewarenya
     $middleware = new cekLogin;

@@ -4,9 +4,10 @@ namespace App\Controller;
 
 // Import class tweet
 // sebagai model tabel tweet
+
+use App\Middleware\cekLogin;
 use App\tweet;
 use Exception;
-use App\cekLogin;
 
 class tweetController {
 
