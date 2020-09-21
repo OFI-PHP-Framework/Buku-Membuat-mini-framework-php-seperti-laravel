@@ -5,6 +5,7 @@
 </head>
 <body>
     <form action="<?php echo ProjectURL ?>/update?id=<?php echo $data->id ?>" method="post">
+    <?php echo CSRF ?>
         <p>
             User
         </p>

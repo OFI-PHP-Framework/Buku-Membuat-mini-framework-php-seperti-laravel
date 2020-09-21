@@ -6,6 +6,8 @@
 </head>
 <body>
     <form action="<?php echo ProjectURL ?>/login" method="post">
+        <?php echo CSRF ?>
+
         <p>
             Username
         </p>

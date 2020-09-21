@@ -1,8 +1,9 @@
 <?php 
     // Import class
     use App\Middleware\cekLogin;
+use Volnix\CSRF\CSRF;
 
-    // jalankan middlewarenya
+// jalankan middlewarenya
     $middleware = new cekLogin;
     $middleware->handle();
 ?>
@@ -14,6 +15,7 @@
 </head>
 <body>
     <form action="<?php echo ProjectURL ?>/store" method="post">
+    <?php echo CSRF ?>
         <p>
             User
         </p>
