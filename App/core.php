@@ -155,7 +155,7 @@ class core {
                 // Mendapatkan path instalasi projek kita
                 // hasilnya seperti ini
                 // C:/xampp_7.1/htdocs/myFramework/App/
-                $path_controller = $_SERVER["DOCUMENT_ROOT"] . ProjectURL . '/App/';
+                $path_controller = $_SERVER["DOCUMENT_ROOT"] . ProjectURL . '/App/Controller/';
 
                 // Kita pecah dulu menjadi dua bagian value pada direction
                 $explode = explode('@', $temp_direction);
@@ -166,7 +166,7 @@ class core {
                     // Array ( [0] => helloController [1] => index )
                     
                     // Dapatkan class dan method pada proses explode diatas
-                    $getClass = 'App\\' . $explode[0];
+                    $getClass = 'App\\Controller\\' . $explode[0];
                     $getMethods = $explode[1];
 
                     // Buat class baru dengan memanggil $getClass
