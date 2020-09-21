@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "53144e36cc317af1323b494dd6772f3f",
+    "content-hash": "682b1732add849e53007c7eea5064b63",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -146,7 +146,7 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v7.28.1",
+            "version": "v7.28.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -193,7 +193,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v7.28.1",
+            "version": "v7.28.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -237,7 +237,7 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v7.28.1",
+            "version": "v7.28.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
@@ -299,7 +299,7 @@
         },
         {
             "name": "illuminate/events",
-            "version": "v7.28.1",
+            "version": "v7.28.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
@@ -344,7 +344,7 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v7.28.1",
+            "version": "v7.28.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
@@ -406,16 +406,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.39.1",
+            "version": "2.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "7af467873250583cc967a59ee9df29fabab193c1"
+                "reference": "6c7646154181013ecd55e80c201b9fd873c6ee5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7af467873250583cc967a59ee9df29fabab193c1",
-                "reference": "7af467873250583cc967a59ee9df29fabab193c1",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/6c7646154181013ecd55e80c201b9fd873c6ee5d",
+                "reference": "6c7646154181013ecd55e80c201b9fd873c6ee5d",
                 "shasum": ""
             },
             "require": {
@@ -481,7 +481,17 @@
                 "datetime",
                 "time"
             ],
-            "time": "2020-09-04T13:11:37+00:00"
+            "funding": [
+                {
+                    "url": "https://opencollective.com/Carbon",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/nesbot/carbon",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-09-11T19:00:58+00:00"
         },
         {
             "name": "psr/container",
@@ -1409,6 +1419,46 @@
                 "php"
             ],
             "time": "2020-07-22T23:32:04+00:00"
+        },
+        {
+            "name": "volnix/csrf",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/volnix/csrf.git",
+                "reference": "9d1abbf3ce9bda1b34d7f8f70fa0871bb7a5dd6b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/volnix/csrf/zipball/9d1abbf3ce9bda1b34d7f8f70fa0871bb7a5dd6b",
+                "reference": "9d1abbf3ce9bda1b34d7f8f70fa0871bb7a5dd6b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Volnix\\CSRF\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nick Volgas",
+                    "email": "nvolgas@ark.org"
+                }
+            ],
+            "description": "CSRF protection library that compares provided token to session token to ensure request validity.",
+            "homepage": "https://github.com/volnix/csrf",
+            "time": "2017-09-19T13:24:13+00:00"
         }
     ],
     "packages-dev": [],
@@ -1420,5 +1470,6 @@
     "platform": {
         "php": "^7.2"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

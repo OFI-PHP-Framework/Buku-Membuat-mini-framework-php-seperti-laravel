@@ -11,8 +11,13 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 use \Illuminate\Events\Dispatcher;
 use \Illuminate\Container\Container;
 use Exception;
+use Volnix\CSRF\CSRF;
 include 'config.php';
 session_start();
+
+// untuk mendapatkan token
+// berupa input hidden token
+define('CSRF', CSRF::getHiddenInputString());
 
 
 /**
@@ -194,6 +199,23 @@ class core {
 
     public function start()
     {
+        // Dapatkan info http method
+        // apakah Get atau POST
+        $REQUEST_METHOD = $_SERVER['REQUEST_METHOD'];
+
+        // Jika Http method adalah
+        // POST maka lakukan validasi token
+        // CSRF
+        // strtoupper untuk mengubah teks menjadi
+        // huruf kapital (besar) semua
+
+        if(strtoupper($REQUEST_METHOD) == "POST") {
+            // Jika token tidak valid maka tampilkan pesan error
+            if ( !CSRF::validate($_POST) ) {
+            	throw new Exception("Bad CSRF token", 500);
+            } 
+        }
+
         $this->processRoute();
     }
 
